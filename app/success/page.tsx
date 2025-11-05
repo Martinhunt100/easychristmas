@@ -4,7 +4,7 @@ export default async function Success({ searchParams }: { searchParams: { sessio
   const sessionId = searchParams.session_id;
   if (!sessionId) return <div>Success! Check your email for downloads.</div>;
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-06-20' });
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const session = await stripe.checkout.sessions.retrieve(sessionId, { expand: ['line_items'] });
   const slug = (session.metadata?.slug ?? '') as string;
 
