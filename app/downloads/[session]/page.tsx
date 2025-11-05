@@ -2,7 +2,7 @@ import Stripe from 'stripe';
 import { findSKU } from '@/lib/catalog';
 
 export default async function Downloads({ params }: { params: { session: string } }) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-06-20' });
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const s = await stripe.checkout.sessions.retrieve(params.session, { expand: ['line_items'] });
   const slug = (s.metadata?.slug ?? '') as string;
   const sku = findSKU(slug);
